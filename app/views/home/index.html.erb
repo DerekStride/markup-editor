@@ -1,1 +1,10 @@
+<% if current_user %>
+  Welcome, <%= current_user.dig("info", "name") %>
+<%= button_to "Logout", logout_path, method: :delete %>
+<% else %>
+  <%= button_to "Sign in w/ GitHub", "/auth/github", method: :post, data: { turbo: false } %>
+<% end %>
+
 <h1 class="text-4xl">Home</h1>
+
+<%= current_user %>
