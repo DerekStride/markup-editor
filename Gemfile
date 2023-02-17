@@ -19,6 +19,9 @@ gem "omniauth"
 gem "omniauth-rails_csrf_protection"
 gem "omniauth-github"
 
+gem "octokit"
+gem "octicons_helper"
+
 group :development, :test do
   gem "pry-byebug"
 end
