@@ -11,6 +11,17 @@
   </head>
 
   <body>
-    <%= yield %>
+    <% if current_user %>
+      <div class="flex justify-between px-5">
+        <%= link_to "Welcome, #{current_user.name}", "/" %>
+        <%= button_to "Logout", logout_path, method: :delete %>
+      </div>
+    <% else %>
+      <%= button_to "Sign in w/ GitHub", "/auth/github", method: :post, data: { turbo: false }, form: { class: "flex justify-end px-5" } %>
+    <% end %>
+
+    <div class="container mx-auto px-4">
+      <%= yield %>
+    </div>
   </body>
 </html>
