@@ -12,6 +12,7 @@ class Issue
     :title,
     :number,
     :state,
+    :body,
     :html_url,
     :pull_request,
     :repository_url,
@@ -24,6 +25,7 @@ class Issue
   def edit_url = html_url.delete_prefix(GITHUB_URL)
   def pull? = !!pull_request
   def open? = state == "open"
+  def document = Document.new(body, id: number)
 
   def octicon
     return "git-pull-request" if pull? && open?

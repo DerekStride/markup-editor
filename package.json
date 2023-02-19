@@ -12,5 +12,12 @@
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
+  },
+  "devDependencies": {
+    "@codemirror/commands": "^6.2.1",
+    "@codemirror/lang-markdown": "^6.1.0",
+    "@codemirror/state": "^6.2.0",
+    "@codemirror/view": "^6.9.1",
+    "@tailwindcss/typography": "^0.5.9"
   }
 }

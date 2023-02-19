@@ -1,1 +1,17 @@
-<h1 class="text-4xl"><%= @issue.title %></h1>
+<h1 class="text-4xl"><%= @document.issue_title %></h1>
+
+<div class="grid grid-cols-2 gap-4">
+  <div data-controller="editor"
+       class="border">
+    <%= form_with url: @document.edit_url do |f| %>
+      <%= f.text_area :body, value: @document.body, class: "hidden", :"data-editor-target" => "source" %>
+      <%= f.hidden_field :from_a, :"data-editor-target" => "fromA" %>
+      <%= f.hidden_field :to_a, :"data-editor-target" => "toA" %>
+      <%= f.hidden_field :from_b, :"data-editor-target" => "fromB" %>
+      <%= f.hidden_field :to_b, :"data-editor-target" => "toB" %>
+      <%= f.hidden_field :inserted, :"data-editor-target" => "inserted" %>
+      <%= f.submit class: "hidden", :"data-editor-target" => "submit" %>
+    <% end %>
+  </div>
+  <%= render "card" %>
+</div>
