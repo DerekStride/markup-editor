@@ -22,6 +22,9 @@ gem "omniauth-github"
 gem "octokit"
 gem "octicons_helper"
 
+gem "redcarpet", "~> 3.6"
+gem "rouge", "~> 4.1"
+
 group :development, :test do
   gem "pry-byebug"
 end

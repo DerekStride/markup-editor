@@ -12,5 +12,8 @@ module.exports = {
         'github-purple': '#8250e9'
       }
     }
-  }
+  },
+  plugins: [
+    require('@tailwindcss/typography'),
+  ]
 }

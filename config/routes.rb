@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get "auth/:provider/callback", to: "sessions#create"
   delete "/logout", to: "sessions#delete"
 
-  get ":owner/:repo/issues/:issue_number", to: "issues#edit"
-  get ":owner/:repo/pull/:issue_number", to: "issues#edit"
+  get ":owner/:repo_name/issues/:issue_number", to: "issues#edit"
+  get ":owner/:repo_name/pull/:issue_number", to: "issues#edit"
+  post ":owner/:repo_name/issues/:issue_number", to: "issues#update"
+  post ":owner/:repo_name/pull/:issue_number", to: "issues#update"
 end
