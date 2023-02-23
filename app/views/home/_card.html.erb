@@ -10,7 +10,7 @@
           <li class="p-1 rounded-md hover:bg-gray-300">
             <%= link_to issue.edit_url do %>
               <div class="flex">
-                <%= octicon(issue.octicon, class: "flex-initial self-center ml-2 #{issue.open? ? "fill-github-green" : "fill-github-purple"}") %>
+                <%= octicon(issue.octicon, class: "flex-initial self-center ml-2 #{github_color_for(issue)}") %>
                 <div class="flex flex-grow flex-col pl-2">
                   <span><%= issue.title %></span>
                   <span class="text-xs text-gray-500"><%= issue.repo %></span>
