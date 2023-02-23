@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+APP_ROOT = File.expand_path("..", __dir__)
+TMP_DIR = File.join(APP_ROOT, "tmp")
+
+REPO_URL = "https://github.com/MDeiml/tree-sitter-markdown.git"
+REPO_SHA = "7e7aa9a25ca9729db9fe22912f8f47bdb403a979"
+REPO_DIR = "tree-sitter-markdown-#{REPO_SHA}"
+
+PARSER_SO = File.join(TMP_DIR, REPO_DIR, "tree-sitter-markdown", "parser.so")
+TARGET = File.join(APP_ROOT, "treesitter", "markdown.so")
+
+return if File.exist?(PARSER_SO) && File.exist?(TARGET)
+
+FileUtils.chdir(APP_ROOT) do
+  FileUtils.mkdir_p "tmp"
+  FileUtils.mkdir_p "treesitter"
+end
+
+FileUtils.chdir(TMP_DIR) do
+  system! "git clone --depth=1 #{REPO_URL} #{REPO_DIR}" unless File.exist?(REPO_DIR)
+
+  FileUtils.chdir(REPO_DIR) do
+    system! "git fetch origin #{REPO_SHA}"
+    system! "git checkout #{REPO_SHA}"
+    system! "npm ci"
+
+    FileUtils.chdir("tree-sitter-markdown") do
+      puts "Compiling parser.c"
+      system! "cc -c -Os -std=c99 -fPIC -I./src -o parser.o src/parser.c"
+      puts "Compiling scanner.cc"
+      system! "cc -c -Os -std=c++14 -fPIC -I./src -o scanner.o src/scanner.cc"
+      puts "Linking object files into shared object"
+      system! "cc parser.o scanner.o -o parser.so -shared -lstdc++"
+    end
+  end
+end
+
+puts "Copying parser.so to #{TARGET}"
+FileUtils.cp(PARSER_SO, TARGET)

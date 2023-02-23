@@ -20,6 +20,7 @@ gem "omniauth-rails_csrf_protection"
 gem "omniauth-github"
 
 gem "octokit"
+gem "faraday-retry"
 gem "octicons_helper"
 
 gem "redcarpet", "~> 3.6"
