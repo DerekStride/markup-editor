@@ -23,16 +23,16 @@ gem "octokit"
 gem "faraday-retry"
 gem "octicons_helper"
 
-gem "redcarpet", "~> 3.6"
-gem "rouge", "~> 4.1"
+gem "markup-ast", path: "../ts-markdown"
 
 group :development, :test do
-  gem "pry-byebug"
+  gem "debug", require: false
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "ruby-lsp", require: false
 end
 
 group :test do
