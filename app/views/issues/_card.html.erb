@@ -1,5 +1,24 @@
 <%= turbo_frame_tag "preview_card" do %>
-  <article class="prose">
-    <%= @document.to_html %>
-  </article>
+  <div data-controller="selection"
+       class="flex gap-4">
+    <%= form_with url: @document.comment_url do |f| %>
+      <%= f.hidden_field :selection_start, :"data-selection-target" => "selectionStart" %>
+      <%= f.hidden_field :selection_start_offset, :"data-selection-target" => "selectionStartOffset" %>
+      <%= f.hidden_field :selection_end, :"data-selection-target" => "selectionEnd" %>
+      <%= f.hidden_field :selection_end_offset, :"data-selection-target" => "selectionEndOffset" %>
+      <%= f.hidden_field :comment, :"data-selection-target" => "comment" %>
+      <%= f.submit class: "hidden", :"data-selection-target" => "submit" %>
+    <% end %>
+    <article data-selection-target="article"
+             class="flex-grow prose">
+      <%= @document.to_html %>
+    </article>
+    <div>
+      <button data-action="click->selection#highlight"
+        class="flex-shrink border rounded-md bg-gray-50 text-sm
+               hover:bg-gray-100 p-3">
+        Comment
+      </button>
+    </div>
+  </div>
 <% end %>

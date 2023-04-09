@@ -17,6 +17,17 @@ class IssuesController < ApplicationController
     end
   end
 
+  def comment
+    selection_start = comment_params[:selection_start]
+    selection_start_offset = comment_params[:selection_start_offset]
+    selection_end = comment_params[:selection_end]
+    selection_end_offset = comment_params[:selection_end_offset]
+    comment_content = comment_params[:comment]
+
+    binding.b
+    head :unimplemented
+  end
+
   private
 
   # By using `find_or_initialize_by`, we avoid creating a new `WorkingDocument`
@@ -57,6 +68,7 @@ class IssuesController < ApplicationController
   def repo = "#{issue_params[:owner]}/#{issue_params[:repo_name]}"
   def issue_params = params.permit(:owner, :repo_name, :issue_number)
   def document_params = params.permit(:from_a, :to_a, :from_b, :to_b, :inserted)
+  def comment_params = params.permit(:comment, :selection_start, :selection_start_offset, :selection_end, :selection_end_offset)
 
   def change_set
     ChangeSet.new(
